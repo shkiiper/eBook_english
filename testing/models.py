@@ -87,7 +87,7 @@ class CompletedTest(models.Model):
     test_family_friends = models.ForeignKey(TestFamilyFriends, null=True, blank=True, default=0,
                                             on_delete=models.CASCADE)
     test_food_drinks = models.ForeignKey(TestFoodDrinks, null=True, blank=True, default=0, on_delete=models.CASCADE)
-
+#fdf
     def __str__(self):
         return f"Completed Test - User: {self.user.username}, Type: {self.test_type}, Difficulty: {self.difficulty_level}"
 
