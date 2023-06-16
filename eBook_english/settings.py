@@ -5,8 +5,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@s)fes2*5bx#(2y)_p)k(a5_iwgx7apv-0ou7tk)_!6c64q6#j"
 
 CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-custom-header',
+]
+
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
