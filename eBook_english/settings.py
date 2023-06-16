@@ -1,19 +1,12 @@
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-@s)fes2*5bx#(2y)_p)k(a5_iwgx7apv-0ou7tk)_!6c64q6#j"
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_HEADERS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
@@ -43,7 +36,6 @@ INSTALLED_APPS = [
     'User',
     "corsheaders",
 ]
-# fdsaf
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

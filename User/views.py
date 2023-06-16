@@ -130,10 +130,7 @@ class UpdateUserAnswerAPIView(APIView):
         correct_answers = Testing.objects.filter(user=request.user, question=question, is_correct=True).count()
         filtered_questions = Testing.objects.filter(question=question, is_correct=True).count()
 
-        if total_questions > 0:
-            request.user.statistic = (correct_answers / filtered_questions) * 100
-        else:
-            request.user.statistic = 100
+        request.user.statistic = (filtered_questions / total_questions) * 100
 
         request.user.save()
 
