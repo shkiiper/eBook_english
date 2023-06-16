@@ -22,9 +22,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
 
-CORS_ALLOW_HEADERS = [
-    'Content-Type',
-]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
