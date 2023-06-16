@@ -126,13 +126,12 @@ class UpdateUserAnswerAPIView(APIView):
         testing.is_correct = question.is_correct
         testing.save()
 
-        total_questions = Testing.objects.filter(question=question).count()
-        correct_answers = Testing.objects.filter(user=request.user, question=question, is_correct=True).count()
-        filtered_questions = Testing.objects.filter(question=question, is_correct=True).count()
-
-        request.user.statistic = (filtered_questions / total_questions) * 100
-
-        request.user.save()
-
+        # total_questions = Testing.objects.filter(question=question).count()
+        # correct_answers = Testing.objects.filter(user=request.user, question=question, is_correct=True).count()
+        #
+        # request.user.statistic = (correct_answers / total_questions) * 100
+        # request.user.save()
+        #
         serializer = QuestionSerializer(question)
         return Response(serializer.data)
+

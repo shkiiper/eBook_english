@@ -82,3 +82,14 @@ class Testing(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     user_answer = models.CharField(max_length=200, null=True, blank=True)
     is_correct = models.BooleanField(default=False)
+    total_questions = models.IntegerField(default=0)
+    correct_answers = models.IntegerField(default=0)
+    statistic = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.total_questions = Testing.objects.filter(user=self.user).count()
+        self.correct_answers = Testing.objects.filter(user=self.user, is_correct=1).count()
+        self.user.statistic = (self.correct_answers / self.total_questions) * 100
+        self.user.save()
+
+        super(Testing, self).save(*args, **kwargs)
