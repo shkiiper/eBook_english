@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 
-from .models import Note, Dictionary, Level, TestType, Question, Testing
+from .models import Note, Dictionary, Level, TestType, Question, Testing, Review
 from .serializers import UserSerializer, NoteSerializer, DictionarySerializer, LevelSerializer, TestTypeSerializer, \
-    QuestionSerializer, TestingSerializer, TestingReadOnlySerializer
+    QuestionSerializer, TestingSerializer, TestingReadOnlySerializer, ReviewSerializer
 
 User = get_user_model()
 
@@ -45,6 +45,12 @@ class TokenObtainPairView(APIView):
             return Response(response_data)
         else:
             return Response({'error': 'Invalid credentials'}, status=400)
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [AllowAny]
 
 
 class NoteViewSet(viewsets.ModelViewSet):
@@ -126,12 +132,5 @@ class UpdateUserAnswerAPIView(APIView):
         testing.is_correct = question.is_correct
         testing.save()
 
-        # total_questions = Testing.objects.filter(question=question).count()
-        # correct_answers = Testing.objects.filter(user=request.user, question=question, is_correct=True).count()
-        #
-        # request.user.statistic = (correct_answers / total_questions) * 100
-        # request.user.save()
-        #
         serializer = QuestionSerializer(question)
         return Response(serializer.data)
-

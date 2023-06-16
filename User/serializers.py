@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from User.models import Note, Dictionary, TestType, Question, Testing, Level
+from User.models import Note, Dictionary, TestType, Question, Testing, Level, Review
 
 User = get_user_model()
 
@@ -36,6 +36,12 @@ class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
         fields = '__all__'
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('id', 'review_text', 'user')
 
 
 class TestTypeSerializer(serializers.ModelSerializer):

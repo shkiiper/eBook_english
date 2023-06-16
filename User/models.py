@@ -38,6 +38,14 @@ class Note(models.Model):
         return self.message
 
 
+class Review(models.Model):
+    review_text = models.TextField()
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.review_text
+
+
 class Dictionary(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
