@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_teacher = models.BooleanField(default=False)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+    statistic = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -37,9 +39,46 @@ class Note(models.Model):
 
 
 class Dictionary(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()
 
     def __str__(self):
         return self.name
+
+
+class Level(models.Model):
+    name = models.CharField(max_length=50, default='Unknown')
+
+    def __str__(self):
+        return self.name
+
+
+class TestType(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    choice1 = models.CharField(max_length=200, default='вариант')
+    choice2 = models.CharField(max_length=200, default='вариант')
+    choice3 = models.CharField(max_length=200, default='вариант')
+    correct_answer = models.CharField(max_length=200)
+    user_answer = models.CharField(max_length=200, null=True, blank=True)
+    is_correct = models.BooleanField(default=False)
+    test_type = models.ForeignKey(TestType, on_delete=models.CASCADE, default='')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, default='')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.question_text
+
+
+class Testing(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user_answer = models.CharField(max_length=200, null=True, blank=True)
+    is_correct = models.BooleanField(default=False)

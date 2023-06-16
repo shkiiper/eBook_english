@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from User.models import Note, Dictionary
+from User.models import Note, Dictionary, TestType, Question, Testing, Level
 
 User = get_user_model()
 
@@ -9,7 +9,7 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'profile_photo', 'is_teacher', 'password')
+        fields = ('id', 'username', 'email', 'profile_photo', 'is_teacher', 'password', 'statistic', 'points')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -27,9 +27,40 @@ class NoteSerializer(serializers.ModelSerializer):
 
 
 class DictionarySerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Dictionary
         fields = ('id', 'name', 'description', 'user')
-        read_only_fields = ('user',)
+
+
+class LevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Level
+        fields = '__all__'
+
+
+class TestTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestType
+        fields = '__all__'
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+
+class TestingReadOnlySerializer(serializers.ModelSerializer):
+    question = QuestionSerializer()
+
+    class Meta:
+        model = Testing
+        fields = '__all__'
+
+
+class TestingSerializer(serializers.ModelSerializer):
+    question = QuestionSerializer()
+
+    class Meta:
+        model = Testing
+        fields = '__all__'

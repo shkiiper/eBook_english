@@ -1,12 +1,14 @@
 from rest_framework.routers import SimpleRouter
+from .views import UserViewSet, NoteViewSet, LevelViewSet, TestTypeViewSet, \
+    QuestionViewSet, TestingViewSet
 
-from testing.views import CompletedTestViewSet
-from .views import UserViewSet, TokenObtainPairView, NoteViewSet, DictionaryViewSet
 
 router = SimpleRouter()
 router.register('users', UserViewSet, basename='user')
 router.register(r'notes', NoteViewSet, basename='note')
-router.register(r'dictionaries', DictionaryViewSet, basename="dictionaries")
-router.register(r'completedtests', CompletedTestViewSet, basename="test")
+router.register('levels', LevelViewSet)
+router.register('testtypes', TestTypeViewSet)
+router.register('questions', QuestionViewSet)
+router.register('testing', TestingViewSet)
 urlpatterns = [
 ]
