@@ -21,9 +21,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class NoteSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Note
-        fields = ('id', 'message', 'user')
+        fields = '__all__'
 
 
 class DictionarySerializer(serializers.ModelSerializer):
@@ -39,9 +41,14 @@ class LevelSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user_username = serializers.SerializerMethodField()
+
     class Meta:
         model = Review
-        fields = ('id', 'review_text', 'user')
+        fields = ['id', 'review_text', 'user', 'user_username']
+
+    def get_user_username(self, obj):
+        return obj.get_user_username()
 
 
 class TestTypeSerializer(serializers.ModelSerializer):

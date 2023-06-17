@@ -70,7 +70,7 @@ class LevelViewSet(viewsets.ModelViewSet):
     serializer_class = LevelSerializer
     permission_classes = [AllowAny]
 
-
+#fd
 class TestTypeViewSet(viewsets.ModelViewSet):
     queryset = TestType.objects.all()
     serializer_class = TestTypeSerializer
