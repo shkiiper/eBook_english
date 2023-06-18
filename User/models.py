@@ -45,7 +45,7 @@ class Review(models.Model):
     def __str__(self):
         return self.review_text
 
-    def get_user_username(self):
+    def get_user_username(self): #на объекте модели, будет возвращено имя пользователя этого объекта.
         return self.user.username
 
 
@@ -98,9 +98,9 @@ class Testing(models.Model):
     statistic = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        self.total_questions = Testing.objects.filter(user=self.user).count()
-        self.correct_answers = Testing.objects.filter(user=self.user, is_correct=1).count()
-        self.user.statistic = (self.correct_answers / self.total_questions) * 100
-        self.user.save()
+        self.total_questions = Testing.objects.filter(user=self.user).count() #подсчитывает общее количество вопросов, связанных с пользователем и сохраняет это значение в поле total_questions модели Testing.
+        self.correct_answers = Testing.objects.filter(user=self.user, is_correct=1).count()#подсчитывает количество правильных ответов, связанных с пользователем self.user, и сохраняет это значение в поле correct_answers модели Testing.
+        self.user.statistic = (self.correct_answers / self.total_questions) * 100#вычисляет статистику (процент правильных ответов) для пользователя, делением количества правильных ответов на общее количество вопросов и умножением на 100. Значение статистики сохраняется в поле statistic модели User.
+        self.user.save() #сохраняет изменения в объекте пользователя (User).
 
-        super(Testing, self).save(*args, **kwargs)
+        super(Testing, self).save(*args, **kwargs) #вызывает базовый метод save() модели Testing для сохранения объекта Testing в базе данных.

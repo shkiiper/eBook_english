@@ -7,16 +7,16 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'profile_photo', 'is_teacher', 'password', 'statistic', 'points')
-        extra_kwargs = {'password': {'write_only': True}}
+    class Meta:#class Meta: - определяет класс Meta внутри сериализатора. В классе Meta определяются метаданные для сериализатора, включая модель, поля и дополнительные настройки.
+        model = User #model = User - указывает модель, с которой будет связан сериализатор.
+        fields = ('id', 'username', 'email', 'profile_photo', 'is_teacher', 'password', 'statistic', 'points')#определяет поля модели, которые будут включены в сериализацию и десериализацию.
+        extra_kwargs = {'password': {'write_only': True}} #позволяет задать дополнительные настройки для определенных полей. Здесь указано, что поле password должно быть доступно только для записи (write-only) и не должно включаться в сериализованный вывод.
 
-    def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = User(**validated_data)
-        user.set_password(password)
-        user.save()
+    def create(self, validated_data): #определяет метод create, который будет вызываться при создании нового объекта с использованием сериализатора.
+        password = validated_data.pop('password') #получает значение поля
+        user = User(**validated_data)#создает экземпляр модели User с использованием оставшихся проверенных данных
+        user.set_password(password) #устанавливает хэшированный пароль для пользователя, используя метод set_password() модели пользователя Django. Пароль хэшируется для безопасного хранения в базе данных.
+        user.save() #сохраняет
         return user
 
 
@@ -46,9 +46,6 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['id', 'review_text', 'user', 'user_username']
-
-    def get_user_username(self, obj):
-        return obj.get_user_username()
 
 
 class TestTypeSerializer(serializers.ModelSerializer):

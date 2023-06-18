@@ -1,6 +1,8 @@
 from rest_framework.routers import SimpleRouter
 from .views import UserViewSet, NoteViewSet, LevelViewSet, TestTypeViewSet, \
     QuestionViewSet, TestingViewSet, DictionaryViewSet, ReviewViewSet
+#routers в Django представляет набор инструментов, которые помогают автоматически создавать URL-маршруты для представлений на основе моделей (viewsets) в Django REST Framework.
+
 
 router = SimpleRouter()
 router.register('users', UserViewSet, basename='user')
