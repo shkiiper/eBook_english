@@ -45,9 +45,6 @@ class Review(models.Model):
     def __str__(self):
         return self.review_text
 
-    def get_user_username(self): #на объекте модели, будет возвращено имя пользователя этого объекта.
-        return self.user.username
-
 
 class Dictionary(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
